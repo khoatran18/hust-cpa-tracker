@@ -107,9 +107,9 @@ export default function App() {
                       </div>
                     ))}
                   </div>
-                  <span style={{ fontSize: 12, color: 'var(--text-dim)', marginLeft: 'auto' }}>
-                    Ảnh hưởng CPA · tổng tín chỉ · biểu đồ
-                  </span>
+                  {/*<span style={{ fontSize: 12, color: '#94a3b8', marginLeft: 'auto' }}>*/}
+                  {/*  Ảnh hưởng CPA · tổng tín chỉ · biểu đồ*/}
+                  {/*</span>*/}
                 </div>
               </div>
             )}
@@ -120,7 +120,7 @@ export default function App() {
 
             {/* ── Charts ── */}
             <p className="section-title">Phân phối điểm</p>
-            <Charts gradeDistribution={data.stats.grade_distribution} />
+            <Charts gradeDistribution={data.stats.grade_distribution} courses={data.courses} />
 
             <div className="divider" />
 
@@ -135,6 +135,7 @@ export default function App() {
               selectedModules={selectedModules}
               onDataUpdate={handleDataUpdate}
               hasBackup={data.has_backup || false}
+              originalCourses={data.original_courses || null}
             />
 
             {/* ── Target CPA ── cuối trang */}

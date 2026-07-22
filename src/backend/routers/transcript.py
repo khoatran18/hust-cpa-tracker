@@ -7,6 +7,7 @@ from services.file_service import (
     save_raw,
     save_preprocessed,
     load_raw,
+    load_original,
     backup_original,
     restore_original,
     has_backup,
@@ -46,12 +47,17 @@ def build_response(transcript: list, base_name: str, selected_modules: list[int]
     Tạo response chuẩn:
     - courses: tất cả môn (dùng cho bảng điểm — không filter module)
     - stats: chỉ tính từ module được chọn
+    - original_courses: bảng điểm gốc (từ backup) để so sánh thay đổi
     """
     available_modules = detect_available_modules(transcript)
     display_courses = preprocess_for_display(transcript)
     stat_courses = preprocess_for_stats(transcript, selected_modules)
     stats = compute_stats(stat_courses)
     save_preprocessed(stat_courses, base_name)
+
+    # Load bản gốc để so sánh (nếu có backup)
+    original_raw = load_original(base_name)
+    original_courses = preprocess_for_display(original_raw) if original_raw is not None else None
 
     return {
         "base_name": base_name,
@@ -60,6 +66,7 @@ def build_response(transcript: list, base_name: str, selected_modules: list[int]
         "courses": display_courses,        # Toàn bộ môn → bảng điểm
         "stats": stats,                    # Chỉ từ module được chọn → CPA/stats
         "has_backup": has_backup(base_name),
+        "original_courses": original_courses,  # Bản gốc để highlight thay đổi
     }
 
 

@@ -253,6 +253,36 @@ body {
 }
 .btn-ghost:hover { background: var(--bg-card-hover); color: var(--text-primary); }
 
+/* Nút "Các điểm đã cập nhật" */
+.btn-updates {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px;
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.35);
+  border-radius: var(--radius-sm);
+  color: #a5b4fc;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.btn-updates:hover {
+  background: rgba(99,102,241,0.22);
+  border-color: rgba(99,102,241,0.6);
+  color: #c7d2fe;
+  box-shadow: 0 0 14px rgba(99,102,241,0.2);
+}
+.updates-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(99,102,241,0.35);
+  color: #c7d2fe;
+  font-size: 11px; font-weight: 800;
+  min-width: 20px; height: 20px;
+  border-radius: 10px;
+  padding: 0 5px;
+}
+
 /* ─── Stats Cards ───────────────────────────────────────────── */
 .stats-grid {
   display: grid;
@@ -276,17 +306,17 @@ body {
   background: linear-gradient(135deg, var(--color-start, transparent), transparent 70%);
   opacity: 0.08;
 }
-.stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
+.stat-label { font-size: 11px; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
 .stat-value {
   font-size: 36px; font-weight: 800; letter-spacing: -1.5px;
   margin: 8px 0 5px;
   line-height: 1;
   text-shadow: 0 0 40px currentColor;
 }
-.stat-sub { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+.stat-sub { font-size: 12px; color: #e2e8f0; font-weight: 500; }
 .stat-icon {
   position: absolute; right: 20px; top: 20px;
-  font-size: 28px; opacity: 0.25;
+  font-size: 28px; opacity: 0.65;
 }
 
 /* ─── Charts ────────────────────────────────────────────────── */
@@ -303,6 +333,7 @@ body {
   border-radius: var(--radius-lg);
   background: var(--bg-card);
   border: 1px solid var(--border);
+  overflow: visible;
 }
 .chart-title {
   font-size: 14px; font-weight: 700;
@@ -369,19 +400,19 @@ body {
   margin-bottom: 16px;
   flex-wrap: wrap;
 }
-.module-bar-label { font-size: 13px; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+.module-bar-label { font-size: 13px; color: #e2e8f0; font-weight: 600; white-space: nowrap; }
 .module-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-/* ── Chip INACTIVE: rất mờ ── */
+/* ── Chip INACTIVE: mờ nhưng vẫn đọc được ── */
 .chip {
   display: flex; align-items: center; gap: 5px;
   padding: 4px 14px;
   border-radius: 20px;
-  border: 1px dashed rgba(255,255,255,0.15);
+  border: 1px dashed rgba(255,255,255,0.25);
   background: transparent;
   font-size: 13px; font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.55);
   user-select: none;
 }
 .chip:hover {
@@ -437,6 +468,82 @@ tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: rgba(255,255,255,0.025); }
 tbody td { padding: 11px 14px; color: var(--text-secondary); vertical-align: middle; font-size: 13px; }
 tbody td:first-child { color: #f1f5f9; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+/* ─── Filter Row ────────────────────────────────────────────── */
+.filter-row th {
+  background: rgba(99,102,241,0.06);
+  border-bottom: 1px solid rgba(99,102,241,0.18);
+  padding: 6px 8px;
+}
+
+.filter-text-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 4px 8px;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.filter-text-input:focus { border-color: rgba(99,102,241,0.6); }
+.filter-text-input::placeholder { color: #475569; }
+
+.filter-dropdown-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px; font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  white-space: nowrap; overflow: hidden;
+}
+.filter-dropdown-btn:hover { border-color: rgba(99,102,241,0.5); }
+
+.filter-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 150px;
+  background: #1a2236;
+  border: 1px solid rgba(99,102,241,0.3);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+  z-index: 200;
+  padding: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.filter-dropdown-search {
+  width: 100%; padding: 5px 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  color: #e2e8f0; font-size: 12px; font-family: inherit;
+  outline: none; margin-bottom: 4px;
+}
+
+.filter-dropdown-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px; color: #cbd5e1;
+  user-select: none;
+  transition: background 0.1s;
+}
+.filter-dropdown-item:hover { background: rgba(99,102,241,0.12); }
+.filter-dropdown-item input[type=checkbox] {
+  accent-color: #6366f1;
+  width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;
+}
 
 .group-row td {
   background: rgba(99,102,241,0.1);
@@ -503,6 +610,31 @@ tbody td:first-child { color: #f1f5f9; font-weight: 600; font-family: 'JetBrains
   transition: background 0.15s;
 }
 .edit-trigger:hover { background: rgba(255,255,255,0.06); }
+
+/* Nút ✕ hoàn tác nhanh trong bảng */
+.revert-inline-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  color: #64748b;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+}
+.revert-inline-btn:hover {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.4);
+  color: #f87171;
+}
+.revert-inline-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
 
 /* ─── Loading / Toast ───────────────────────────────────────── */
 .spinner {

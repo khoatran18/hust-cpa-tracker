@@ -67,5 +67,14 @@ def restore_original(base_name: str) -> bool:
     return False
 
 
+def load_original(base_name: str) -> list | None:
+    """Load bản gốc (backup) theo base_name. Trả về None nếu không có backup."""
+    path = RAW_DATA_DIR / f"{base_name}_original.json"
+    if not path.exists():
+        return None
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def has_backup(base_name: str) -> bool:
     return (RAW_DATA_DIR / f"{base_name}_original.json").exists()
